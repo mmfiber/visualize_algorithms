@@ -69,15 +69,16 @@ export default {
       else if(this.selected === "quick") this.quickSort(array, [])
       else if(this.selected === "select") this.selectionSort(array)
 
-      await this.draw().finnaly(() => this.drawId = null)
+      this.draw()
     },
-    async draw() {
+    draw() {
       this.options.chart.animation = false
 
       let count = 0
       this.drawId = setInterval(() => {
         if (count == this.sortedArrays.length - 1 ) {
           clearInterval(this.drawId)
+          this.drawId = null
           this.options.chart.animation = true
         }
         this.chart.series[0].setData(this.sortedArrays[count])
