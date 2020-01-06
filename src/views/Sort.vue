@@ -3,7 +3,7 @@
     template(#sidebar)
       Sidebar(:items="sortTypes" @clicked="change")
     template(#main)
-      ChartWindow(:title="title" @start="start" @reset="initChart")
+      ChartWindow(:title="title" :drawId="drawId" @start="start" @reset="initChart" @stop="stop")
         highcharts(:options="options" ref="highcharts")
         v-text-field(v-model="numOfArr" type="number" label="Number of random numbers")
 </template>
@@ -24,13 +24,16 @@ export default {
     return {
       sortTypes: {
         "bubble": {"title": "Bubble Sort"},
+        "insert": {"title": "Insertion Sort"},
         "quick": {"title": "Quick Sort"},
+        "select": {"title": "Selection Sort"},
       },
       selected: "bubble",
       options: baseSortChartOptions,
       chart: null,
       numOfArr: 50,
       sortedArrays: null,
+      drawId: null,
     }
   },
   mounted() {
@@ -57,27 +60,33 @@ export default {
       if(this.chart.series[0]) this.chart.series[0].setData(random(num))
       else this.chart.addSeries({data: random(num)})
     },
-    start() {
+    async start() {
       const array = this.chart.series[0].yData
       this.sortedArrays = [array]
 
       if (this.selected === "bubble") this.bubbleSort(array)
+      else if(this.selected === "insert") this.insertSort(array)
       else if(this.selected === "quick") this.quickSort(array, [])
+      else if(this.selected === "select") this.selectionSort(array)
 
-      this.draw()
+      await this.draw().finnaly(() => this.drawId = null)
     },
-    draw() {
+    async draw() {
       this.options.chart.animation = false
 
       let count = 0
-      const id = setInterval(() => {
+      this.drawId = setInterval(() => {
         if (count == this.sortedArrays.length - 1 ) {
-          clearInterval(id)
+          clearInterval(this.drawId)
           this.options.chart.animation = true
         }
         this.chart.series[0].setData(this.sortedArrays[count])
         count++
       }, 100)
+    },
+    stop() {
+      clearInterval(this.drawId)
+      this.drawId = null
     },
     bubbleSort(array) {
       const length = array.length
@@ -87,6 +96,21 @@ export default {
             const tmp = array[j]
             array[j] = array[j-1]
             array[j-1] = tmp
+          }
+        }
+        this.record(array.concat())
+      }
+    },
+    insertSort(array) {
+      const length = array.length
+      for(let i = 1; i < length; i++) {
+        for(let j = i; 0 < j; j--) {
+          if(array[j] < array[j-1]) {
+            const tmp = array[j]
+            array[j] = array[j-1]
+            array[j-1] = tmp
+          } else {
+            break
           }
         }
         this.record(array.concat())
@@ -114,6 +138,21 @@ export default {
       this.record(sorted_left.concat([pivot], sorted_right, rest))
 
       return sorted_left.concat([pivot], sorted_right)
+    },
+    selectionSort(array) {
+      const length = array.length
+      for(let i = 0; i < length; i++) {
+        let min_idx = i
+        for(let j = i; j < length; j++) {
+          if(array[j] < array[min_idx]) {
+            min_idx = j
+          }
+        }
+        const tmp = array[i]
+        array[i] = array[min_idx]
+        array[min_idx] = tmp
+        this.record(array.concat())
+      }
     },
     record (array){
       this.sortedArrays = this.sortedArrays.concat([array])

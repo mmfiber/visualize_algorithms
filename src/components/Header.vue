@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-app-bar.primary(dark app)
+  v-app-bar.primary(fixed dark app)
     v-toolbar-title.headline Viualize Algorithm
     v-spacer
     v-toolbar-items
@@ -7,8 +7,6 @@
 </template>
 
 <style lang="sass" scoped>
-  .v-app-bar
-    position: sticky
   .v-toolbar__content > div
     align-self: center !important
 </style>

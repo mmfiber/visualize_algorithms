@@ -3,14 +3,21 @@
     v-card-title.justify-center.headline {{ title }}
     slot
     v-card-actions.justify-center
-      v-btn.primary.body(text @click="start" large) start
-      v-btn.primary.body(text @click="reset" large) reset
+      v-btn.body.elevation-0(@click="start" large color="primary") start
+      v-btn.body.elevation-0(@click="reset" large color="primary" :disabled="isDrawing") reset
+      v-btn.body.elevation-0(@click="stop" large color="primary" :disabled="!isDrawing") stop
 </template>
 
 <script>
 export default {
   props: {
-    title: String
+    title: String,
+    drawId: Number,
+  },
+  computed: {
+    isDrawing() {
+      return Boolean(this.drawId)
+    }
   },
   methods: {
     start() {
@@ -18,6 +25,9 @@ export default {
     },
     reset() {
       this.$emit("reset")
+    },
+    stop() {
+      this.$emit("stop")
     },
   }
 };

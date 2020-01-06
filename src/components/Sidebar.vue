@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-navigation-drawer.ma-0
+  v-navigation-drawer.ma-0.fill-height
     v-list(nav link)
       v-list-item(v-for="(item, name) in items" :key="name" link)
         v-list-item-content(@click="emit(name)")
@@ -7,7 +7,7 @@
 </template>
 
 <style lang="sass">
-  aside
+  .v-navigation-drawer
     width: 100% !important
 </style>
 
