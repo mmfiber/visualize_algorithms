@@ -3,8 +3,8 @@
     v-card-title.justify-center.headline {{ title }}
     slot
     v-card-actions.justify-center
-      v-btn.primary.body(text @click="start" x-large) start
-      v-btn.primary.body(text @click="reset" x-large) reset
+      v-btn.primary.body(text @click="start" large) start
+      v-btn.primary.body(text @click="reset" large) reset
 </template>
 
 <script>
