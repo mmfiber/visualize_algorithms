@@ -1,9 +1,9 @@
 <template lang="pug">
-  v-app-bar.primary(prominent dark app)
-    v-toolbar-title.display-1 Viualize Algorithm
+  v-app-bar.primary(dark app)
+    v-toolbar-title.headline Viualize Algorithm
     v-spacer
     v-toolbar-items
-      v-btn.headline(v-for="item in items" :key="item" @click="push(item)" text) {{ item }}
+      v-btn.body(v-for="item in items" :key="item" @click="push(item)" text) {{ item }}
 </template>
 
 <style lang="sass" scoped>

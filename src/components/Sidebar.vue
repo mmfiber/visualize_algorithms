@@ -3,7 +3,7 @@
     v-list(nav link)
       v-list-item(v-for="(item, name) in items" :key="name" link)
         v-list-item-content(@click="emit(name)")
-          v-list-item-title.headline {{ item.title }}
+          v-list-item-title.body {{ item.title }}
 </template>
 
 <style lang="sass">
