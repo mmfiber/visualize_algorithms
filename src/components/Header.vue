@@ -3,7 +3,7 @@
     v-toolbar-title.display-1 Viualize Algorithm
     v-spacer
     v-toolbar-items
-      v-tab.headline(v-for="item in items" :key="item" @click="push(item)") {{ item }}
+      v-btn.headline(v-for="item in items" :key="item" @click="push(item)" text) {{ item }}
 </template>
 
 <style lang="sass" scoped>
