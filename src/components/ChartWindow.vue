@@ -11,7 +11,7 @@
 
     slot
     v-card-actions.justify-center
-      v-btn.body.elevation-0(@click="start" large color="primary") start
+      v-btn.body.elevation-0(@click="start" large color="primary" :disabled="isDrawing") start
       v-btn.body.elevation-0(@click="reset" large color="primary" :disabled="isDrawing") reset
       v-btn.body.elevation-0(@click="stop" large color="primary" :disabled="!isDrawing") stop
 </template>

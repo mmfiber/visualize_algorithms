@@ -10,6 +10,6 @@ export default new VueRouter({
   routes: [
     { path: '/', name: 'home', redirect: 'sort' },
     { path: '/sort', name: 'sort', component: Sort },
-    { path: '*', redirect: 'home' }
+    { path: '*', redirect: 'sort' }
   ]
 })
