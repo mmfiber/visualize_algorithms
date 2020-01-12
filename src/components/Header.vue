@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-app-bar.primary(fixed dark app)
+  v-app-bar.primary(height=64 fixed dark app)
     v-toolbar-title.headline Viualize Algorithm
     v-spacer
     v-toolbar-items
