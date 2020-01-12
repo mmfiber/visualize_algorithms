@@ -1,6 +1,14 @@
 <template lang="pug">
   v-card.fill-height.elevation-0(width="100%")
     v-card-title.justify-center.headline {{ title }}
+      v-menu(transition="slide-y-transition")
+        template(v-slot:activator="{ on }")
+          v-btn.ml-2.hidden-md-and-up(v-on="on" icon) 
+            v-icon mdi-dots-vertical
+        v-list
+          v-list-item(v-for="(item, name) in types" :key="name" @click="emit(name)")
+            v-list-item-title {{ item.title }}
+
     slot
     v-card-actions.justify-center
       v-btn.body.elevation-0(@click="start" large color="primary") start
@@ -8,10 +16,16 @@
       v-btn.body.elevation-0(@click="stop" large color="primary" :disabled="!isDrawing") stop
 </template>
 
+<style lang="sass">
+  .capitalize
+    text-transform: capitalize
+</style>
+
 <script>
 export default {
   props: {
     title: String,
+    types: Object,
     drawId: Number,
   },
   computed: {
@@ -28,6 +42,9 @@ export default {
     },
     stop() {
       this.$emit("stop")
+    },
+    emit(item) {
+      this.$emit("changed", item)
     },
   }
 };
