@@ -2,14 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import router from './plugins/router';
-import HighchartsVue from 'highcharts-vue';
-
-Vue.use(HighchartsVue);
+import chart from './plugins/chart'
 
 Vue.config.productionTip = false
 
 new Vue({
   vuetify,
   router,
+  chart,
   render: h => h(App)
 }).$mount('#app')

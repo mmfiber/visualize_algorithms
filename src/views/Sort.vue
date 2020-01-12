@@ -3,7 +3,8 @@
     template(#sidebar)
       Sidebar(:items="sortTypes" @clicked="change")
     template(#main)
-      ChartWindow(:title="title" :drawId="drawId" @start="start" @reset="initChart" @stop="stop")
+      ChartWindow(:title="title" :types="sortTypes" :drawId="drawId"
+          @start="start" @reset="initChart" @stop="stop" @changed="change")
         highcharts(:options="options" ref="highcharts")
         v-text-field(v-model="numOfArr" type="number" label="Number of random numbers")
 </template>
@@ -88,6 +89,7 @@ export default {
     stop() {
       clearInterval(this.drawId)
       this.drawId = null
+      this.options.chart.animation = true
     },
     bubbleSort(array) {
       const length = array.length
